@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+h1 {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2%;
+  margin-top: 1.5%;
+}
+
+.titre {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+.traducteur {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #00ff88;
+}
+
+.traducteur textarea {
+  width: 50%;
+  min-height: 200px;
+  padding: 20px;
+  font-size: 16px;
+  background-color: #0d1117;
+  color: white;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'Courier New', monospace;
+}
+
+.traducteur textarea:first-child {
+  border-right: 1px solid #00ff8855;
+}
+
+.traducteur textarea::placeholder {
+  color: #ffffff44;
+}
+.bouton {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-family: 'Courier New', monospace;
+  background-color: #0d1117;
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bouton:hover {
+  background-color: #00ff88;
+  color: #0d1117;
+}
