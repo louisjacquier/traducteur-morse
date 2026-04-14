@@ -1,6 +1,26 @@
 import { useState } from 'react'
-const [texte, setTexte] = useState('')
-const [morse, setMorse] = useState('')
+
+const Alpha_to_morse = {
+  "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".",
+  "F": "..-.", "G": "--.", "H": "....", "I": "..", "J": ".---",
+  "K": "-.-", "L": ".-..", "M": "--", "N": "-.", "O": "---",
+  "P": ".--.", "Q": "--.-", "R": ".-.", "S": "...", "T": "-",
+  "U": "..-", "V": "...-", "W": ".--", "X": "-..-", "Y": "-.--",
+  "Z": "--..", "0": "-----", "1": ".----", "2": "..---", "3": "...--",
+  "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..",
+  "9": "----.", " ": "/", "   ": "//"
+}
+
+const Morse_to_alpha = {
+  ".-": "A", "-...": "B", "-.-.": "C", "-..": "D", ".": "E",
+  "..-.": "F", "--.": "G", "....": "H", "..": "I", ".---": "J",
+  "-.-": "K", ".-..": "L", "--": "M", "-.": "N", "---": "O",
+  ".--.": "P", "--.-": "Q", ".-.": "R", "...": "S", "-": "T",
+  "..-": "U", "...-": "V", ".--": "W", "-..-": "X", "-.--": "Y",
+  "--..": "Z", "-----": "0", ".----": "1", "..---": "2", "...--": "3",
+  "....-": "4", ".....": "5", "-....": "6", "--...": "7", "---..": "8",
+  "----.": "9", "/": " ", "//": "   "
+}
 
 const Logo = () => (
   <svg width="300" viewBox="0 0 680 320" role="img" xmlns="http://www.w3.org/2000/svg">
@@ -34,115 +54,47 @@ const Logo = () => (
 )
 
 function Site() {
-  const traduire = (texte) => {
-  return texte
-    .toUpperCase()
-    .split('')
-    .map(lettre => Alpha_to_morse[lettre] || '?')
-    .join(' ')
-}
+  const [texte, setTexte] = useState('')
+  const [morse, setMorse] = useState('')
   const [isOn, setIsOn] = useState(false)
-  const Alpha_to_morse = {
-  "A": ".-",
-  "B": "-...",
-  "C": "-.-.",
-  "D": "-..",
-  "E": ".",
-  "F": "..-.",
-  "G": "--.",
-  "H": "....",
-  "I": "..",
-  "J": ".---",
-  "K": "-.-",
-  "L": ".-..",
-  "M": "--",
-  "N": "-.",
-  "O": "---",
-  "P": ".--.",
-  "Q": "--.-",
-  "R": ".-.",
-  "S": "...",
-  "T": "-",
-  "U": "..-",
-  "V": "...-",
-  "W": ".--",
-  "X": "-..-",
-  "Y": "-.--",
-  "Z": "--..",
-  "0": "-----",
-  "1": ".----",
-  "2": "..---",
-  "3": "...--",
-  "4": "....-",
-  "5": ".....",
-  "6": "-....",
-  "7": "--...",
-  "8": "---..",
-  "9": "----.",
-  " ": "/"    ,
-  "   ": "//",
-}
- const Morse_to_alpha = {
-  ".-": "A",
-  "-...": "B",
-  "-.-.": "C",
-  "-..": "D",
-  ".": "E",
-  "..-.": "F",
-  "--.": "G",
-  "....": "H",
-  "..": "I",
-  ".---": "J",
-  "-.-": "K",
-  ".-..": "L",
-  "--": "M",
-  "-.": "N",
-  "---": "O",
-  ".--.": "P",
-  "--.-": "Q",
-  ".-.": "R",
-  "...": "S",
-  "-": "T",
-  "..-": "U",
-  "...-": "V",
-  ".--": "W",
-  "-..-": "X",
-  "-.--": "Y",
-  "--..": "Z",
-  "-----": "0",
-  ".----": "1",
-  "..---": "2",
-  "...--": "3",
-  "....-": "4",
-  ".....": "5",
-  "-....": "6",
-  "--...": "7",
-  "---..": "8",
-  "----.": "9",
-  "/": " ",
-  "//": "   "
-}
+
+  const traduire = (t) => {
+    return t.toUpperCase().split('').map(l => Alpha_to_morse[l] || '?').join(' ')
+  }
+
+  const detraduire = (m) => {
+    return m.split(' ').map(code => Morse_to_alpha[code] || '?').join('')
+  }
+
   return (
     <div>
-       <div className="titre">
-         <h1>Traducteur morse</h1>
-         <Logo />
-       </div>
-       <div className="traducteur">
-         <textarea
-  placeholder="Entrez votre texte en français..."
-  value={texte}
-  onChange={(e) => {
-    setTexte(e.target.value)
-    setMorse(traduire(e.target.value))
-  }}
-/>
-       </div>
-       <div>
-         <button className="bouton" onClick={() => setIsOn(!isOn)}>
-           Utilisation Gemini: {isOn ? "ON" : "OFF"}
-         </button>
-       </div>
+      <div className="titre">
+        <h1>Traducteur morse</h1>
+        <Logo />
+      </div>
+      <div className="traducteur">
+        <textarea
+          placeholder="Entrez votre texte en français..."
+          value={texte}
+          onChange={(e) => {
+            setTexte(e.target.value)
+            setMorse(traduire(e.target.value))
+          }}
+        />
+        <textarea
+          placeholder="--- .-. ... ."
+          value={morse}
+          onChange={(e) => {
+            setMorse(e.target.value)
+            setTexte(detraduire(e.target.value))
+          }}
+        />
+      </div>
+      <div>
+        <button className="bouton" onClick={() => setIsOn(!isOn)}>
+          Utilisation Gemini: {isOn ? "ON" : "OFF"}
+        </button>
+      </div>
     </div>
   )
 }
