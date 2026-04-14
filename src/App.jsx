@@ -32,6 +32,13 @@ const Logo = () => (
 )
 
 function Site() {
+  const traduire = (texte) => {
+  return texte
+    .toUpperCase()
+    .split('')
+    .map(lettre => Alpha_to_morse[lettre] || '?')
+    .join(' ')
+}
   const [isOn, setIsOn] = useState(false)
   const Alpha_to_morse = {
   "A": ".-",
@@ -120,11 +127,12 @@ function Site() {
          <Logo />
        </div>
        <div className="traducteur">
-         <textarea placeholder="Entrez votre texte en français..." />
+         <textarea placeholder="Entrez votre texte en français..."  value={texte}
+           onChange={(e) => setMorse(traduire(e.target.value))}/>
          <textarea placeholder="--- .-. ... ."  />
        </div>
        <div>
-          <button className="bouton" >Traduire</button>
+          <button className="bouton" onClick={traduire()}>Traduire</button>
           <br/>
          <button className="bouton" onClick={() => setIsOn(!isOn)}>
            Utilisation Gemini: {isOn ? "ON" : "OFF"}
