@@ -1,4 +1,6 @@
 import { useState } from 'react'
+const [texte, setTexte] = useState('')
+const [morse, setMorse] = useState('')
 
 const Logo = () => (
   <svg width="300" viewBox="0 0 680 320" role="img" xmlns="http://www.w3.org/2000/svg">
@@ -127,9 +129,14 @@ function Site() {
          <Logo />
        </div>
        <div className="traducteur">
-         <textarea placeholder="Entrez votre texte en français..."  value={texte}
-           onChange={(e) => setMorse(traduire(e.target.value))}/>
-         <textarea placeholder="--- .-. ... ."  />
+         <textarea
+  placeholder="Entrez votre texte en français..."
+  value={texte}
+  onChange={(e) => {
+    setTexte(e.target.value)
+    setMorse(traduire(e.target.value))
+  }}
+/>
        </div>
        <div>
          <button className="bouton" onClick={() => setIsOn(!isOn)}>
