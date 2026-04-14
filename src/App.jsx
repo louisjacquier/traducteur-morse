@@ -58,14 +58,23 @@ function Site() {
   const [morse, setMorse] = useState('')
   const [isOn, setIsOn] = useState(false)
 
-  const traduire = (t) => {
-    return t.toUpperCase().split('').map(l => Alpha_to_morse[l] || '?').join(' ')
-  }
+ const traduire = (t) => {
+  return t
+    .toUpperCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Enlève les accents (é -> E)
+    .split('')
+    .map(l => Alpha_to_morse[l] || '') // On ignore les caractères inconnus au lieu de mettre ?
+    .join(' ')
+    .replace(/\s+/g, ' ') // Nettoie les doubles espaces
+}
 
   const detraduire = (m) => {
-    return m.split(' ').map(code => Morse_to_alpha[code] || '?').join('')
-  }
-
+  return m
+    .trim()                 // Enlève les espaces au début et à la fin
+    .split(/\s+/)           // Split sur un OU plusieurs espaces (regex)
+    .map(code => Morse_to_alpha[code] || '?') 
+    .join('')
+}
   return (
     <div>
       <div className="titre">
