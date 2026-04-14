@@ -70,10 +70,13 @@ function Site() {
 
   const detraduire = (m) => {
   return m
-    .trim()                 // Enlève les espaces au début et à la fin
-    .split(/\s+/)           // Split sur un OU plusieurs espaces (regex)
-    .map(code => Morse_to_alpha[code] || '?') 
-    .join('')
+    .trim()                     // Enlève les espaces inutiles au début et à la fin
+    .split(/\s+/)               // Coupe le texte peu importe le nombre d'espaces (1, 2 ou 10)
+    .map(code => {
+      // Si le code est un slash, on met un espace, sinon on cherche la lettre
+      return Morse_to_alpha[code] || ''; 
+    })
+    .join('');
 }
   return (
     <div>
