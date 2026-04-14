@@ -58,25 +58,22 @@ function Site() {
   const [morse, setMorse] = useState('')
   const [isOn, setIsOn] = useState(false)
 
+
 const traduire = (t) => {
-  return t
-    .toUpperCase()
-    .split('')
-    .map(l => Alpha_to_morse[l] || '')
-    .join(' ')
-    .replace(/\s+/g, ' '); 
+  return t.toUpperCase().split(' ').map(mot => {
+    return mot.split('').map(lettre => Alpha_to_morse[lettre] || '').join('/')
+  }).join('//')
 }
 
+
 const detraduire = (m) => {
-  return m
-    .split('/')               
-    .map(mot => 
-      mot.trim()
-         .split(/\s+/)        
-         .map(lettre => Morse_to_alpha[lettre] || '')
-         .join('')
-    )
-    .join(' ');               
+  
+  return m.split('//').map(motMorse => {
+    
+    return motMorse.split('/').map(lettreMorse => {
+      return Morse_to_alpha[lettreMorse] || ''
+    }).join('')
+  }).join(' ') 
 }
   return (
     <div>
