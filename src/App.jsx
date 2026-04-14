@@ -32,7 +32,7 @@ const Logo = () => (
 )
 
 function Site() {
-  const{isOn,setIsOn}= useState(false);
+  const [isOn, setIsOn] = useState(false)
   const Alpha_to_morse = {
   "A": ".-",
   "B": "-...",
