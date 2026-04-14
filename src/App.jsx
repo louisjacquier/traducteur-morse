@@ -132,8 +132,6 @@ function Site() {
          <textarea placeholder="--- .-. ... ."  />
        </div>
        <div>
-          <button className="bouton" onClick={traduire()}>Traduire</button>
-          <br/>
          <button className="bouton" onClick={() => setIsOn(!isOn)}>
            Utilisation Gemini: {isOn ? "ON" : "OFF"}
          </button>
