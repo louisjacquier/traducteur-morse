@@ -100,9 +100,9 @@ const detraduire = (m) => {
         />
       </div>
       <div>
-       //<button className="bouton" onClick={() => setIsOn(!isOn)}>
-        //Utilisation Gemini: {isOn ? "ON" : "OFF"}
-       //</button>
+       {/*<button className="bouton" onClick={() => setIsOn(!isOn)}>
+        Utilisation Gemini: {isOn ? "ON" : "OFF"}
+       </button>*/}
       </div>
     </div>
   )
